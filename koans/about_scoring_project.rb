@@ -30,7 +30,28 @@ require 'edgecase'
 # Your goal is to write the score method.
 
 def score(dice)
-  # You need to write this method
+  rolls = {}
+  score = 0
+  
+  dice.each do |die|
+    rolls[die] ||= 0
+
+    rolls[die] += 1
+  end
+
+  rolls.each_key do |roll|
+    if roll == 1
+      score += 1000 * (rolls[roll] / 3)
+      score += 100 * (rolls[roll] % 3)
+    elsif roll == 5
+      score += roll * (rolls[roll] / 3) * 100
+      score += 50 * (rolls[roll] % 3)
+    else
+      score += roll * (rolls[roll] / 3) * 100
+    end
+  end
+
+  score
 end
 
 class AboutScoringAssignment < EdgeCase::Koan
